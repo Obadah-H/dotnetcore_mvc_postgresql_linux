@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using dotnetcore_mvc_postgresql_linux.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
 using Microsoft.EntityFrameworkCore;
 
 namespace dotnetcore_mvc_postgresql_linux
@@ -24,8 +24,11 @@ namespace dotnetcore_mvc_postgresql_linux
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        { 
-            services.AddDbContext<dotnetcore_mvc_postgresql_linux.Models.DataContext>(p=>p.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+        {
+            // Other DI initializations
+
+            services.AddDbContext<BloggingContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("BloggingContext")));
             
             services.AddControllersWithViews();
         }

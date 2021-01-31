@@ -1,27 +1,25 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
+using dotnetcore_mvc_postgresql_linux.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using dotnetcore_mvc_postgresql_linux.Models;
 
 namespace dotnetcore_mvc_postgresql_linux.Controllers
 {
-    public class ArticleController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ArticleController: ControllerBase
     {
-        private DataContext _context = null;
-        public ArticleController(DataContext context)
+        private BloggingContext _context = null;
+
+        public ArticleController(BloggingContext context)
         {
             _context = context;
         }
 
-[HttpGet]
-        public IActionResult GetArticles()
+        [HttpGet]
+        public ActionResult GetArticles()
         {
-            return View();
+            return Ok(_context.Articles.ToList());
         }
-
     }
 }

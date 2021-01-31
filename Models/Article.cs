@@ -1,12 +1,9 @@
-using System;
-
 namespace dotnetcore_mvc_postgresql_linux.Models
 {
-    public class Articles
+    public class Article
     {
         public int id { get; set; }
         public string name { get; set; }
-        public string password { get; set; }
-
+        public int password { get; set; }
     }
 }
